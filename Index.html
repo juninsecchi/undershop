@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UnderHype — Streetwear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0a0a0a; /* black */
+      --card:#111111;
+      --muted:#a8a8a8;
+      --accent:#e11d2b; /* red */
+      --accent-2:#ff3b3b;
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#070707);font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#fff;}
+    a{color:inherit;text-decoration:none}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:60;background:linear-gradient(180deg,rgba(10,10,10,0.9),rgba(10,10,10,0.6));backdrop-filter:saturate(120%) blur(6px);border-bottom:1px solid rgba(255,255,255,0.03)}
+    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo svg{height:44px;width:44px}
+    .brand{font-family:Oswald,Impact,Arial;font-weight:700;letter-spacing:1px;font-size:20px}
+    nav ul{display:flex;gap:18px;align-items:center;margin:0;padding:0;list-style:none}
+    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:10px 14px;border-radius:10px;font-weight:600;color:#090909}
+    .ghost{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06)}
+
+    /* Hero */
+    .hero{max-width:1200px;margin:28px auto;padding:36px;border-radius:20px;display:flex;gap:28px;align-items:center}
+    .hero-left{flex:1;}
+    .kicker{display:inline-block;padding:6px 10px;background:var(--glass);border-radius:999px;color:var(--muted);font-size:13px;margin-bottom:12px}
+    h1{font-family:Oswald;font-size:48px;margin:0 0 12px;line-height:1}
+    .slogan{font-size:18px;color:var(--muted);margin-bottom:18px}
+    .cta-row{display:flex;gap:12px;align-items:center}
+    .hero-right{flex:1;display:flex;justify-content:center}
+    .hero-card{width:320px;height:420px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .hero-card img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);opacity:0.95}
+    .marquee{position:absolute;bottom:10px;left:0;right:0;padding:8px 0;background:linear-gradient(90deg,rgba(0,0,0,0.2),transparent);color:rgba(255,255,255,0.7);font-weight:600;text-align:center}
+
+    /* Products */
+    .section{max-width:1200px;margin:28px auto;padding:18px}
+    .section h2{font-family:Oswald;margin:0 0 8px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+    .card{background:var(--card);border-radius:14px;padding:10px;border:1px solid rgba(255,255,255,0.03);overflow:hidden;transition:transform .18s ease,box-shadow .2s ease}
+    .card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,0.6)}
+    .thumb{height:260px;border-radius:10px;overflow:hidden;position:relative}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .meta{display:flex;align-items:center;justify-content:space-between;padding:10px 6px}
+    .title{font-weight:700}
+    .price{font-weight:700;color:var(--accent)}
+    .actions{display:flex;gap:8px}
+    .small{font-size:13px;padding:8px 10px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);cursor:pointer}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal.open{display:flex}
+    .modal-card{background:linear-gradient(180deg,#0e0e0e,#0b0b0b);padding:18px;border-radius:16px;max-width:900px;width:100;display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .modal-card img{width:100%;height:520px;object-fit:cover;border-radius:12px}
+    .modal-info h3{margin:0 0 8px}
+    .modal-info p{color:var(--muted)}
+    .add{display:inline-block;margin-top:12px}
+
+    /* Footer */
+    footer{margin-top:40px;padding:20px 0;border-top:1px solid rgba(255,255,255,0.03);text-align:center;color:var(--muted)}
+
+    /* small / responsive */
+    @media (max-width:900px){
+      h1{font-size:36px}
+      .modal-card{grid-template-columns:1fr}
+      .modal-card img{height:320px}
+      .hero{flex-direction:column}
+      .hero-right{margin-top:12px}
+    }
+
+    /* subtle animated accents */
+    @keyframes pulseAccent{0%{box-shadow:0 0 0 0 rgba(225,29,43,0.18)}70%{box-shadow:0 0 0 18px rgba(225,29,43,0)}100%{box-shadow:0 0 0 0 rgba(225,29,43,0)}}
+    .pulse{animation:pulseAccent 2.8s infinite}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">
+        <!-- Logo SVG -->
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="18" fill="#e11d2b"/><path d="M20 70 L40 30 L60 70" stroke="#0b0b0b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <div>
+          <div class="brand">UNDERHYPE</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">Rise Loud. Stay Low.</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li class="ghost">Novidades</li>
+          <li class="ghost">Coleções</li>
+          <li class="ghost">Sobre</li>
+          <li><button id="cartBtn" class="btn">Carrinho (0)</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <div class="kicker">Streetwear · Edição Limitada</div>
+        <h1>Preto. Vermelho. Atitude.</h1>
+        <div class="slogan">Roupas com identidade — cortes retos, estampas ousadas e tecido que dura.</div>
+        <div class="cta-row">
+          <a href="#produtos" class="btn">Comprar Agora</a>
+          <a href="#" class="ghost">Coleção Nova</a>
+        </div>
+        <div style="margin-top:18px;color:var(--muted);font-size:14px">Receba 10% na primeira compra — use código <strong>HYPE10</strong></div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card pulse">
+          <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Hero"/>
+          <div class="marquee">LIMITED DROP • NEW ARRIVAL</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="produtos" class="section">
+      <h2>Mais Vendidos</h2>
+      <div class="grid" id="productGrid">
+        <!-- produto template será inserido por JS -->
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Novas Chegadas</h2>
+      <div class="grid" id="newGrid">
+        <!-- produtos -->
+      </div>
+    </section>
+
+  </main>
+
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <div><img id="modalImg" src="" alt="produto"/></div>
+      <div class="modal-info">
+        <h3 id="modalTitle">Título</h3>
+        <p id="modalDesc">Descrição curta do produto. Materiais e caimento.</p>
+        <div style="margin-top:8px;font-weight:700;font-size:20px;color:var(--accent)" id="modalPrice">R$199</div>
+        <div class="add">
+          <button id="addCart" class="btn">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> UnderHype · Feito com atitude
+  </footer>
+
+  <script>
+    // sample products
+    const products = [
+      {id:1,title:'Camiseta RETRO LOGO',price:129, img:'https://images.unsplash.com/photo-1530845643449-9d0b6f6a7f6e?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder',desc:'Camiseta 100% algodão, corte largo, estampa frontal.'},
+      {id:2,title:'Jaqueta NEO',price:349, img:'https://images.unsplash.com/photo-1549989475-1d0d2adf0f0b?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder',desc:'Jaqueta corta-vento com forro leve, detalhes reflexivos.'},
+      {id:3,title:'Boné UNDER',price:89, img:'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder',desc:'Boné aba curva, ajuste snapback.'},
+      {id:4,title:'Moletom CORE',price:199, img:'https://images.unsplash.com/photo-1542060742-2b8b6f2a1f63?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder',desc:'Moletom com capuz, bolso canguru e interior escovado.'},
+      {id:5,title:'Calça TRACK',price:219, img:'https://images.unsplash.com/photo-1520975911336-7b7f2a4a0c76?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder',desc:'Calça reta com corte esportivo.'},
+      {id:6,title:'Camiseta LABEL',price:99, img:'https://images.unsplash.com/photo-1534939561126-855b8675edd7?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder',desc:'Tecido leve, gola reforçada.'}
+    ];
+
+    const productGrid = document.getElementById('productGrid');
+    const newGrid = document.getElementById('newGrid');
+    const cartBtn = document.getElementById('cartBtn');
+    let cart = JSON.parse(localStorage.getItem('cart')||'[]');
+
+    function updateCartUI(){
+      cartBtn.textContent = `Carrinho (${cart.length})`;
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    updateCartUI();
+
+    function createCard(p){
+      const div = document.createElement('div'); div.className='card';
+      div.innerHTML = `
+        <div class="thumb"><img src="${p.img}" alt="${p.title}"></div>
+        <div class="meta">
+          <div>
+            <div class="title">${p.title}</div>
+            <div style="font-size:13px;color:var(--muted)">Streetwear</div>
+          </div>
+          <div style="text-align:right">
+            <div class="price">R$${p.price}</div>
+            <div class="actions">
+              <button class="small" data-id="${p.id}" data-action="view">Ver</button>
+              <button class="small" data-id="${p.id}" data-action="add">Comprar</button>
+            </div>
+          </div>
+        </div>
+      `;
+      return div;
+    }
+
+    products.slice(0,4).forEach(p=>productGrid.appendChild(createCard(p)));
+    products.slice(4).forEach(p=>newGrid.appendChild(createCard(p)));
+
+    // delegation
+    document.body.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button'); if(!btn) return;
+      const action = btn.dataset.action; const id = Number(btn.dataset.id);
+      if(action==='add'){
+        const item = products.find(x=>x.id===id); cart.push(item); updateCartUI();
+        btn.textContent='Adicionado'; setTimeout(()=>btn.textContent='Comprar',900);
+      }
+      if(action==='view'){
+        const item = products.find(x=>x.id===id); openModal(item);
+      }
+      if(e.target.id==='cartBtn'){
+        alert(`Carrinho: ${cart.length} item(s).\nA funcionalidade completa de checkout pode ser integrada posteriormente.`)
+      }
+    });
+
+    // Modal
+    const modal = document.getElementById('modal');
+    function openModal(item){
+      document.getElementById('modalImg').src = item.img;
+      document.getElementById('modalTitle').textContent = item.title;
+      document.getElementById('modalDesc').textContent = item.desc;
+      document.getElementById('modalPrice').textContent = `R$${item.price}`;
+      modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+      document.getElementById('addCart').onclick = ()=>{ cart.push(item); updateCartUI(); alert('Adicionado ao carrinho!') };
+    }
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+    function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // pequenas melhorias ou animações poderiam ser adicionadas: filtro por colecao, pagina de produto, integração com gateway de pagamento, etc.
+  </script>
+
+</body>
+</html>
